@@ -1,6 +1,6 @@
 <template>
     <div class="continer">
-        <h1>Home page</h1>
+        <h1>Get a short url</h1>
         <LinkForm />
     </div>
 </template>
