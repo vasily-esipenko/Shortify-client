@@ -2,3 +2,15 @@
     display: flex;
     justify-content: space-between;
 };
+
+@mixin navBtn {
+    background: none;
+    border: none;
+    font-family: inherit;
+}
+
+@mixin navBtnHover {
+    transform: scale(1.05);
+    font-family: inherit;
+    text-decoration: underline;
+}
