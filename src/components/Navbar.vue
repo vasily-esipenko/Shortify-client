@@ -2,30 +2,32 @@
     <div class="navbar-fixed">
         <nav>
             <div class="logo">
-                <router-link to="/">Shortify</router-link>
+                <button>
+                    <router-link to="/">Shortify</router-link>
+                </button>
             </div>
             <div class="nav-items">
-                <span class="links-item">
+                <button class="links-item">
                     <router-link to="/links">Links</router-link>
-                </span>
+                </button>
 
-                <span class="links-item">
+                <button class="links-item">
                     <router-link to="/signup">Sign up</router-link>
-                </span>
+                </button>
 
-                <span class="links-item">
+                <button class="links-item">
                     <router-link to="/login">Log in</router-link>
-                </span>
+                </button>
 
-                <span class="links-item">
+                <button class="links-item">
                     <router-link to="/">Logout</router-link>
-                </span>
+                </button>
             </div>
         </nav>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     name: 'Navbar',
 }
@@ -48,6 +50,14 @@ nav {
 
     .logo {
         font-size: 2.5rem;
+
+        button {
+            @include navBtn;
+
+            &:hover {
+                @include navBtnHover;
+            }
+        }
     }
 
     .nav-items {
@@ -57,7 +67,17 @@ nav {
     }
 
     .links-item {
-        margin-right: 1rem;
+        margin-right: 1.2rem;
+        font-size: 1.1rem;
+        @include navBtn;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &:hover {
+            @include navBtnHover;
+        }
     }
 }
 
