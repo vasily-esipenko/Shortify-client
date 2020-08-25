@@ -1,11 +1,11 @@
 <template>
     <div class="form">
         <form class="form-inline">
-            <div class="form-group row-2">
-                <div class="col-sm-1s">
+            <div class="form-row">
+                <div class="col-auto">
                     <label class="sr-only" for="url">enter url</label>
-                    <input type="text" class="form-control" id="url" placeholder="Enter url">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <input type="text" class="form-control" id="url" placeholder="Enter url" v-model="url">
+                    <button type="submit" class="btn btn-primary" @click.prevent="sendUrl(this.url)">Submit</button>
                 </div>
             </div>
         </form>
@@ -13,17 +13,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import {mapActions} from 'vuex';
 
 export default {
     name: 'LinkForm',
+    data() {
+        return {
+            url: ""
+        };
+    },
+    methods: {
+        ...mapActions(['sendUrl']),
+        sendUrl(url: string) {
+            try {
+                const isUrl: boolean = new URL(url) ? true : false;
+                if (isUrl) {
+                    console.log('Valid url');
+                }
+            } catch {
+                console.log('Invalid url');
+            }
+        }
+    }
 }
 
 </script>
 
 <style lang="scss" scoped>
 .form {
-    margin: 3rem auto;
+    margin: 5rem auto;
     text-align: center;
 }
 
