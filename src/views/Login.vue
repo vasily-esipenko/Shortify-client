@@ -1,13 +1,20 @@
 <template>
     <div class="container">
-        <h1>Login page</h1>
+        <LoginForm />
     </div>
 </template>
 
 <script>
-export default {
-    name: 'Login'
-}
+import LoginForm from '@/components/auth/LoginForm.vue';
+import {Options, Vue} from 'vue-class-component';
+
+@Options({
+    components: {
+        LoginForm
+    }
+})
+
+export default class Login extends Vue {}
 </script>
 
 <style lang="scss" scoped>
