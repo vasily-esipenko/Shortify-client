@@ -1,15 +1,18 @@
 <template>
     <div class="container">
-        <h1>Signup page</h1>
+        <SignupForm />
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Signup'
-}
+<script lang="ts">
+import {Options, Vue} from 'vue-class-component';
+import SignupForm from '@/components/auth/SignupForm.vue';
+
+@Options({
+  components: {
+      SignupForm
+  },
+})
+
+export default class Signup extends Vue {}
 </script>
-
-<style lang="scss" scoped>
-
-</style>
