@@ -20,13 +20,13 @@
 
             </div>
 
-            <button type="submit" class="btn btn-primary" @click.prevent="signup">Sign up</button>
+            <button type="submit" class="btn btn-primary" @click.prevent="signup(userForm)">Sign up</button>
         </form>
     </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 export default {
     name: 'LoginForm',
     data() {
@@ -38,8 +38,8 @@ export default {
         };
     },
     methods: {
-        login() {
-            console.log(this.userForm);
+        login(userForm: object) {
+            console.log(userForm);
         }
     }
 }
