@@ -27,7 +27,7 @@
 
             </div>
 
-            <button type="submit" class="btn btn-primary" @click.prevent="signup">Sign up</button>
+            <button type="submit" class="btn btn-primary" @click.prevent="signup(userForm)">Sign up</button>
         </form>
     </div>
 </template>
@@ -47,8 +47,8 @@ export default {
         };
     },
     methods: {
-        signup() {
-            console.log(this.userForm);
+        signup(userForm: object) {
+            console.log(userForm);
         }
     }
 };
