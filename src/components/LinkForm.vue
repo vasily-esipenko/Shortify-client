@@ -5,7 +5,7 @@
                 <div class="col-auto">
                     <label class="sr-only" for="url">enter url</label>
                     <input type="text" class="form-control" id="url" placeholder="Enter url" v-model="url">
-                    <button type="submit" class="btn btn-primary" @click.prevent="sendUrl(this.url)">Submit</button>
+                    <button type="submit" class="btn btn-primary" @click.prevent="sendUrl(url)">Submit</button>
                 </div>
             </div>
         </form>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     name: 'LinkForm',
@@ -23,12 +23,15 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['sendUrl']),
+        ...mapActions(['getShortUrl']),
         sendUrl(url: string) {
             try {
                 const isUrl: boolean = new URL(url) ? true : false;
                 if (isUrl) {
-                    console.log('Valid url');
+                    const urlForm = {
+                        full: url
+                    };
+                    this.getShortUrl(urlForm);
                 }
             } catch {
                 console.log('Invalid url');
