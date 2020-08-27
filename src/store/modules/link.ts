@@ -1,6 +1,6 @@
 export default {
     action: {
-        async sendUrl(ctx: any, url: object) {
+        async getShortUrl(ctx: any, url: object) {
             const res = await fetch('http://localhost:1337', {
                 method: "POST",
                 body: JSON.stringify(url),
@@ -10,13 +10,30 @@ export default {
                 }
             });
 
+            const response = await res.json();
 
+            ctx.commit('setUrls', response.url);
+            ctx.commit('setUrlStatus', response.message);
         }
     },
     mutations: {
+        setUrlStatus(state: any, status: string) {
+            state.urlStatus = status;
+        },
+        setUrls(state: any, url: object) {
+            state.urls.push(url);
+        }
     },
     state: {
-        urls: []
+        urls: [],
+        urlStatus: ""
     },
-    getters: {}
+    getters: {
+        getUrls(state: any) {
+            return state.urls;
+        },
+        getUrlStatus(state: any) {
+            return state.urlStatus;
+        }
+    }
 };
