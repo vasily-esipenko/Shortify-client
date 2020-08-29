@@ -1,7 +1,7 @@
 export default {
-    action: {
+    actions: {
         async getShortUrl(ctx: any, url: object) {
-            const res = await fetch('http://localhost:1337', {
+            const res = await fetch('http://localhost:1337/api/url/', {
                 method: "POST",
                 body: JSON.stringify(url),
                 headers: {
