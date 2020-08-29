@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import {mapActions, mapGetters} from 'vuex';
 
 export default {
@@ -24,9 +24,9 @@ export default {
     },
     methods: {
         ...mapActions(['getShortUrl']),
-        sendUrl(url: string) {
+        sendUrl(url) {
             try {
-                const isUrl: boolean = new URL(url) ? true : false;
+                const isUrl = new URL(url) ? true : false;
                 if (isUrl) {
                     const urlForm = {
                         full: url
@@ -37,7 +37,8 @@ export default {
                 console.log('Invalid url');
             }
         }
-    }
+    },
+    computed: mapGetters(['getUrls'])
 }
 
 </script>
