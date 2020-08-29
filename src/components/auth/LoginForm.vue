@@ -1,8 +1,8 @@
 <template>
     <div class="signup-form">
         <h1>Log in</h1>
-        <div class="authMessage">{{ getAuthData }}</div>
-        <div class="alertMessage">{{alertMessage}}</div>
+        <div class="authMessage" v-show="getAuthData">{{ getAuthData }}</div>
+        <div class="alertMessage" v-show="alertMessage">{{ alertMessage }}</div>
         <form class="form">
             <div class="inputs col">
 
@@ -22,12 +22,12 @@
 
             </div>
 
-            <button type="submit" class="btn btn-primary" @click.prevent="login(userForm)">Sign up</button>
+            <button type="submit" role="button" class="btn btn-primary" @click.prevent="login(userForm)">Log in</button>
         </form>
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import {mapActions, mapGetters} from 'vuex';
 import Joi from 'joi';
 
@@ -50,7 +50,7 @@ export default {
     methods: {
         ...mapActions(['loginUser']),
 
-        login(userForm: object) {
+        login(userForm) {
             if (this.validation(userForm)) {
                 this.loginUser(userForm);
                 this.userForm.email = this.userForm.password = "";
@@ -58,7 +58,7 @@ export default {
             
         },
 
-        validation(user: object): boolean {
+        validation(user) {
             const result = userSchema.validate(user);
             if (result.error == null) return true;
 
