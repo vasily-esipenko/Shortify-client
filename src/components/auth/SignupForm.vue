@@ -1,7 +1,8 @@
 <template>
     <div class="signup-form">
         <h1>Sign up</h1>
-        <div>{{ getAuthData }}</div>
+        <div class="authMessage" v-show="getAuthData">{{ getAuthData }}</div>
+        <div class="alertMessage" v-show="alertMessage">{{ alertMessage }}</div>
         <form class="form">
             <div class="inputs col">
 
@@ -22,19 +23,26 @@
                 <div class="form-row">
                     <div class="col">
                         <label class="sr-only" for="confirm-password">confirm password</label>
-                        <input type="password" class="form-control" id="confirm-password" placeholder="confirm password" v-model="confirmPassword">
+                        <input type="password" class="form-control" id="confirm-password" placeholder="confirm password" v-model="userForm.confirmPassword">
                     </div>
                 </div>
 
             </div>
 
-            <button type="submit" class="btn btn-primary" @click.prevent="signup(userForm)">Sign up</button>
+            <button type="submit" role="button" class="btn btn-primary" @click.prevent="signup(userForm)">Sign up</button>
         </form>
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import {mapActions, mapGetters} from 'vuex';
+import Joi from 'joi';
+
+const userSchema = Joi.object({
+    email: Joi.string().min(4).required(),
+    password: Joi.string().regex(/^[a-zA-Z0-9]{8,}$/).required(),
+    confirmPassword: Joi.ref('password')
+});
 
 export default {
     name: 'SignupForm',
@@ -43,15 +51,32 @@ export default {
             userForm: {
                 email: "",
                 password: "",
+                confirmPassword: ""
             },
-            confirmPassword: "",
             alertMessage: ""
         };
     },
     methods: {
         ...mapActions(['signupUser']),
-        signup(userForm: object) {
-            this.signupUser(userForm);
+        signup(userForm) {
+            if (this.validation(userForm)) {
+                const signupForm = {
+                    email: userForm.email,
+                    password: userForm.password
+                };
+                this.signupUser(signupForm);
+                this.userForm.email = this.userForm.password = this.userForm.confirmPassword = "";
+            }
+        },
+        validation(user) {
+            const result = userSchema.validate(user);
+            if (result.error == null) return true;
+
+            if (result.error.message.includes('email')) this.alertMessage = 'Email is invalid';
+            else if (result.error.message.includes('password')) this.alertMessage = 'Password is invalid';
+            else if (result.error.message.includes('confirmPassword')) this.alertMessage = `Passwords don't match`;
+
+            return false;
         }
     },
     computed: mapGetters(['getAuthData'])
