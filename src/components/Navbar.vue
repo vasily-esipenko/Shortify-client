@@ -2,24 +2,24 @@
     <div class="navbar-fixed">
         <nav>
             <div class="logo">
-                <button>
+                <button role="button">
                     <router-link to="/">Shortify</router-link>
                 </button>
             </div>
             <div class="nav-items">
-                <button class="links-item">
+                <button role="button" class="links-item">
                     <router-link to="/links">Links</router-link>
                 </button>
 
-                <button class="links-item">
+                <button role="button" class="links-item">
                     <router-link to="/signup">Sign up</router-link>
                 </button>
 
-                <button class="links-item">
+                <button role="button" class="links-item">
                     <router-link to="/login">Log in</router-link>
                 </button>
 
-                <button class="links-item">
+                <button role="button" class="links-item">
                     <router-link to="/">Logout</router-link>
                 </button>
             </div>
