@@ -13,7 +13,7 @@ export default {
             const response = await res.json();
 
             localStorage.setItem("token", JSON.stringify(response.token));
-            ctx.commit('setAuthData', response.message);
+            ctx.commit('setAuthResult', response.message);
         },
 
         async loginUser(ctx: any, user: object) {
@@ -29,24 +29,48 @@ export default {
             const response = await res.json();
 
             localStorage.setItem("token", JSON.stringify(response.token));
-            ctx.commit('setAuthData', response.message);
+            ctx.commit('setAuthResult', response.message);
         },
 
         async verifyUser(ctx: any, token: string) {
-            console.log('Verify user function');
+            const res = await fetch('http://localhost:1337/api/user/verify', {
+                method: "POST",
+                body: JSON.stringify(token),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            });
+
+            const response = await res.json();
+            ctx.commit('setVerifiedData', response.data, response.result);
         }
     },
     mutations: {
-        setAuthData(state: any, data: string) {
-            state.authData = data;
+        setAuthResult(state: any, data: string) {
+            state.authResult = data;
+        },
+        setVerifiedData(state: any, data: object) {
+            state.userData = data;
+        },
+        setVerifiedResult(state: any, result: boolean) {
+            state.isLogged = result;
         }
     },
     state: {
-        authData: ""
+        authResult: "",
+        userData: {},
+        isLogged: false
     },
     getters: {
-        getAuthData(state: any) {
-            return state.authData;
+        getAuthResult(state: any) {
+            return state.authResult;
+        },
+        getUserData(state: any) {
+            return state.userData;
+        },
+        isLogged(state: any) {
+            return state.isLogged;
         }
     }
 };
