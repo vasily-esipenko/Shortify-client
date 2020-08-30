@@ -1,5 +1,7 @@
 <template>
     <div class="form">
+        <div v-show="getUrlStatus">{{ getUrlStatus }}</div>
+        <div class="alertMessage" v-show="alertMessage">{{ alertMessage }}</div>
         <form class="form-inline">
             <div class="form-row">
                 <div class="col-auto">
@@ -19,7 +21,8 @@ export default {
     name: 'LinkForm',
     data() {
         return {
-            url: ""
+            url: "",
+            alertMessage: ""
         };
     },
     methods: {
@@ -34,11 +37,11 @@ export default {
                     this.getShortUrl(urlForm);
                 }
             } catch {
-                console.log('Invalid url');
+                this.alertMessage = 'Invalid url. Try again, please';
             }
         }
     },
-    computed: mapGetters(['getUrls'])
+    computed: mapGetters(['getUrls', 'getUrlStatus'])
 }
 
 </script>
