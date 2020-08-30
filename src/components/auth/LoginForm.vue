@@ -1,8 +1,11 @@
 <template>
     <div class="signup-form">
         <h1>Log in</h1>
-        <div class="authMessage" v-show="getAuthData">{{ getAuthData }}</div>
-        <div class="alertMessage" v-show="alertMessage">{{ alertMessage }}</div>
+        <div class="authMessage" v-show="getAuthResult">{{ getAuthResult }}</div>
+        <div class="alertMessage" v-show="alertMessage" @click="closeAlert">
+            {{ alertMessage }}
+            <span role="button"><i class="far fa-times-circle"></i></span>
+        </div>
         <form class="form">
             <div class="inputs col">
 
@@ -66,9 +69,12 @@ export default {
             else if (result.error.message.includes('password')) this.alertMessage = 'Password is invalid';
 
             return false;
+        },
+        closeAlert() {
+            this.alertMessage = "";
         }
     },
-    computed: mapGetters(['getAuthData'])
+    computed: mapGetters(['getAuthResult'])
 }
 </script>
 
@@ -80,10 +86,11 @@ export default {
     @include authForm();
 
     .alertMessage {
-        background-color: #FF2121;
-        color: $secondaryTextColor;
-        border: 1px solid #FF2121;
-        border-radius: 5px;
+        @include alertMessage();
+    }
+
+    .authMessage {
+        @include authMessage();
     }
 }
 
