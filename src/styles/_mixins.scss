@@ -1,3 +1,5 @@
+@import '@/styles/_variables.scss';
+
 @mixin mainFlex {
     display: flex;
     justify-content: space-between;
@@ -31,4 +33,18 @@
     flex-direction: column;
     position: relative;
     text-align: center;
+}
+
+@mixin alertMessage {
+    background-color: $alertBackground;
+    color: $secondaryTextColor;
+    border: 1px solid $alertBackground;
+    border-radius: 5px;
+}
+
+@mixin authMessage {
+    background-color: $secondaryBackground;
+    color: $secondaryTextColor;
+    border: 1px solid $secondaryBackground;
+    border-radius: 5px;
 }
