@@ -1,8 +1,11 @@
 <template>
     <div class="signup-form">
         <h1>Sign up</h1>
-        <div class="authMessage" v-show="getAuthData">{{ getAuthData }}</div>
-        <div class="alertMessage" v-show="alertMessage">{{ alertMessage }}</div>
+        <div class="authMessage" v-show="getAuthResult">{{ getAuthResult }}</div>
+        <div class="alertMessage" v-show="alertMessage" @click="closeAlert">
+            {{ alertMessage }}
+            <span role="button"><i class="far fa-times-circle"></i></span>
+        </div>
         <form class="form">
             <div class="inputs col">
 
@@ -77,9 +80,12 @@ export default {
             else if (result.error.message.includes('confirmPassword')) this.alertMessage = `Passwords don't match`;
 
             return false;
+        },
+        closeAlert() {
+            this.alertMessage = "";
         }
     },
-    computed: mapGetters(['getAuthData'])
+    computed: mapGetters(['getAuthResult'])
 };
 
 </script>
@@ -89,6 +95,14 @@ export default {
 
 .signup-form {
     @include authForm();
+
+    .alertMessage {
+        @include alertMessage();
+    }
+
+    .authMessage {
+        @include authMessage();
+    }
 }
 
 .inputs {
